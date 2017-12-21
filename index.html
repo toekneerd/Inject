@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>SQL Injection Checker</title>
+
+</head>
+<body>
+<table width="300" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+    <tr>
+        <form name="form1" method="post" action="checklogin.php">
+            <td>
+                <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
+                    <tr>
+                        <td colspan="3"><strong>User Login </strong></td>
+                    </tr>
+                    <tr>
+
+                        <td width="78">Username:</td>
+                        <td width="6"></td>
+                        <td width="294"><input name="user" type="text" id="user" oninput="allLetter(document.form1.user)"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td></td>
+                        <td><input name="pass" type="text" id="pass" oninput="allLetter(document.form1.pass)"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><input type="submit" name="Submit" value="Submit" id="Submit"></td>
+
+                    </tr>
+                </table>
+            </td>
+        </form>
+    </tr>
+</table>
+
+<script>
+    function allLetter(inputtxt) {
+        var btn = document.getElementById("Submit");
+
+        var letters = /^[A-Za-z0-9]+$/;
+        var deletion= "\'DEL";
+        var selection= "\'SELECT";
+        var union= "\'UNION";
+        var or="\'OR";
+        var insert = "\'INSERT";
+        var drop="\'DROP";
+        var update = "\'UPDATE";
+        var alter = "\'ALTER";
+        var create = "\'CREATE";
+        var grant = "\'GRANT";
+        var comment1="--";
+        var comment2="/*//g";
+        var hex="0X";
+        var concatenation1="+ '";
+        var concatenation2="+ \"";
+        var concatenation3="+ |";
+        var func='(';
+        var singlequote='\'';
+        var equals='=';
+        var dots="....";
+
+        var text=inputtxt.value.toUpperCase();
+
+        if (!text.match(letters))
+        {
+            btn.disabled = true;
+        }
+        else if (text.match(letters))
+        {
+            btn.removeAttribute("disabled");
+        }
+        if(text.match(deletion))
+        {
+            alert("DEL SQL Command detected. WARNING: Improper use of this application has been detected. A " +
+                "possible attack was identified. Legal actions will be taken");
+            btn.disabled = true;
+        }
+        if(text.match(selection))
+        {
+            alert("SELECT SQL Command detected");
+            btn.disabled = true;
+        }
+
+        if(text.match(drop)) {
+            alert("DROP SQL Command detected");
+            btn.disabled = true;
+        }
+        if(text.match(union))
+        {
+            alert("UNION detected. SQL injection possible");
+        }
+        if(text.match(or))
+        {
+            alert("OR detected. SQL injection possible");
+        }
+        if(text.match(insert))
+        {
+            alert("INSERT detected. SQL injection possible");
+        }
+        if(text.match(update))
+        {
+            alert("UPDATE detected. SQL injection possible");
+        }
+        if(text.match(alter))
+        {
+            alert("ALTER detected. SQL injection possible");
+        }
+        if(text.match(create))
+        {
+            alert("CREATE detected. SQL injection possible");
+        }
+        if(text.match(grant))
+        {
+            alert("GRANT detected. SQL injection possible");
+        }
+        if(text.match(comment1))
+        {
+            alert("-- Detected.  Commented SQL injection possible.");
+            btn.disabled = true;
+        }
+        if(text.match(hex))
+        {
+            alert("Hex value detected, SQL injection possible.");
+            btn.disabled = true;
+        }
+        if(text.match(concatenation1))
+        {
+            alert("String Concatenation detected. SQL injection possible");
+        }
+        if(text.match(concatenation2))
+        {
+            alert("String Concatenation detected.  SQL injection possible");
+        }
+        if(text.match(concatenation3))
+        {
+            alert("String Concatenation detected.  SQL injection possible");
+        }
+        if(text.match(func))
+        {
+            alert("Function detected.  SQL injection possible");
+        }
+        if(text.match(singlequote))
+        {
+            alert("Single quote detected. SQL injection possible");
+        }
+        if(text.match(equals))
+        {
+            alert("Equals detected.  SQL injection possible");
+        }
+        if(text.match(dots))
+        {
+            alert(".... detected. SQL injection possible");
+        }
+
+    }
+</script>
+
+</body>
+</html>
